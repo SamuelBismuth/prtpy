@@ -20,6 +20,9 @@ class partitioning:
     from prtpy.partitioning.ilp import optimal as ilp
     from prtpy.partitioning.ilp import optimal as integer_programming
 
+    from prtpy.partitioning.integer_programming import optimal as ip
+    from prtpy.partitioning.integer_programming import optimal as integer_programming_steinitz
+
     from prtpy.partitioning.greedy import greedy
     from prtpy.partitioning.greedy import greedy as lpt
     from prtpy.partitioning.greedy import greedy as longest_processing_time
@@ -38,14 +41,13 @@ class covering:
     from prtpy.packing.cflz_covering import threequarters as threequarters
 
 
-
-# class exact:  # Algorithms that return the exact optimal partition
-#     from prtpy.complete_greedy import optimal as cg
-#     from prtpy.complete_greedy import optimal as complete_greedy
-#     from prtpy.dp import optimal as dp
-#     from prtpy.dp import optimal as dynamic_programming
-#     from prtpy.ilp import optimal as ilp
-#     from prtpy.ilp import optimal as integer_programming
+class exact:  # Algorithms that return the exact optimal partition
+    from prtpy.partitioning.dp import optimal as dp
+    from prtpy.partitioning.dp import optimal as dynamic_programming
+    from prtpy.partitioning.ilp import optimal as ilp
+    from prtpy.partitioning.ilp import optimal as integer_programming
+    from prtpy.partitioning.integer_programming import optimal as ip
+    from prtpy.partitioning.integer_programming import optimal as integer_programming_steinitz
 
 
 # class approx:  # Algorithms that return an approximately-optimal partition
