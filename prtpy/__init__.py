@@ -49,12 +49,17 @@ class exact:  # Algorithms that return the exact optimal partition
     from prtpy.partitioning.ilp import optimal as ilp
     from prtpy.partitioning.ilp import optimal as integer_programming
 <<<<<<< HEAD
+<<<<<<< HEAD
     from prtpy.partitioning.steinitz import steinitz_ip as ip
     from prtpy.partitioning.steinitz import steinitz_ip as integer_programming_steinitz
 =======
     from prtpy.partitioning.integer_programming import optimal as ip
     from prtpy.partitioning.integer_programming import optimal as integer_programming_steinitz
 >>>>>>> b522d54 (Compilation and tests.)
+=======
+    from prtpy.partitioning.steinitz import optimal as ip
+    from prtpy.partitioning.steinitz import optimal as integer_programming_steinitz
+>>>>>>> e65a86c (Changing filename.)
 
 
 # class approx:  # Algorithms that return an approximately-optimal partition
