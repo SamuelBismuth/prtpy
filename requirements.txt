@@ -2,3 +2,4 @@ numpy>=1.21.3
 scipy>=1.6.1
 mip
 experiments_csv
+networkx
