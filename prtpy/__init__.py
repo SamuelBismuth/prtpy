@@ -30,8 +30,6 @@ class partitioning:
     from prtpy.partitioning.roundrobin import roundrobin
     from prtpy.partitioning.multifit import multifit as multifit
 
-    from prtpy.partitioning.cbldm import cbldm
-
 
 class packing:
     from prtpy.packing.first_fit import online as first_fit, decreasing as first_fit_decreasing
@@ -48,22 +46,11 @@ class exact:  # Algorithms that return the exact optimal partition
     from prtpy.partitioning.dp import optimal as dynamic_programming
     from prtpy.partitioning.ilp import optimal as ilp
     from prtpy.partitioning.ilp import optimal as integer_programming
-<<<<<<< HEAD
-<<<<<<< HEAD
     from prtpy.partitioning.steinitz import steinitz_ip as ip
     from prtpy.partitioning.steinitz import steinitz_ip as integer_programming_steinitz
-=======
-    from prtpy.partitioning.integer_programming import optimal as ip
-    from prtpy.partitioning.integer_programming import optimal as integer_programming_steinitz
->>>>>>> b522d54 (Compilation and tests.)
-=======
-    from prtpy.partitioning.steinitz import optimal as ip
-    from prtpy.partitioning.steinitz import optimal as integer_programming_steinitz
->>>>>>> e65a86c (Changing filename.)
 
 
 # class approx:  # Algorithms that return an approximately-optimal partition
 #     from prtpy.greedy import greedy
 #     from prtpy.first_fit import online as first_fit, decreasing as first_fit_decreasing
 #     from prtpy.first_fit import online as ff, decreasing as ffd
-
