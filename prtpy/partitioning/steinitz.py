@@ -25,8 +25,11 @@ import logging
 # logging.basicConfig(level=logging.DEBUG)
 
 # If you want the info loggings to be printed in the terminal, uncomment this line.
-# logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.INFO)
 
+
+# TODO: Move the test in the integer_programming_partitionning file and test here some general IP equations.
+# TODO: Remove any partition dependency in this file. 
 
 def steinitz_ip(c:np.ndarray, A:np.ndarray, b:np.ndarray)->str:
     '''
