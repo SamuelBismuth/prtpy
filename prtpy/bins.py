@@ -62,6 +62,14 @@ class Bins(ABC):
         """
         return self
 
+    @abstractmethod
+    def min(self):
+        """
+        Get the bin with the min order of sum. 
+        """
+        return self
+
+
     def __repr__(self) -> str:
         bins_str = [f"Bin #{i}: {self.bin_to_str(i)}" for i in range(self.num)]
         return "\n".join(bins_str)
@@ -143,6 +151,12 @@ class BinsKeepingSums(Bins):
     def sort(self):
         self.sums.sort()
         return self
+
+    def min(self):
+        return min(self.sums)
+    
+    def min_index(self):
+        return self.sums.index(min(self.sums))
 
 
 class BinsKeepingContents(BinsKeepingSums):
@@ -227,6 +241,11 @@ class BinsKeepingContents(BinsKeepingSums):
         self.bins.sort(key=lambda bin: (sum(bin), len(bin)))
         return self
 
+    def min(self):
+        return min(self.bins)
+
+    def min_index(self):
+        return self.bins.index(min(self.bins))
 
 if __name__ == "__main__":
     import doctest

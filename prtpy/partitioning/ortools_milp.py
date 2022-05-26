@@ -1,5 +1,6 @@
 """
 Produce an optimal partition by solving an mixed integer linear program (MILP).
+For splittings use.
 
 Programmer: Samuel Bismuth
 Since: 2022-05
