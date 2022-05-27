@@ -1,6 +1,9 @@
+from hashlib import algorithms_available
 from typing import Callable, List, Any
 from prtpy import outputtypes as out, objectives as obj, Bins
 import logging
+
+from prtpy.partitioning.greedy import greedy
 
 # If you want the debug loggings to be printed in the terminal, uncomment this line.
 # logging.basicConfig(level=logging.DEBUG)
@@ -9,65 +12,67 @@ import logging
 def splittings(
     bins: Bins,
     items: List[Any],
-    splits: int,
-    algorithm: Any
+    valueof: Callable=lambda x: x,
+    splits: int=0,
+    method: Any=greedy,
 ):
     '''
     >>> from prtpy.bins import BinsKeepingContents, BinsKeepingSums
     >>> from prtpy.partitioning import greedy    
-    >>> splittings(BinsKeepingContents(2), items=[1,2,3,3,5,9,9], splits=1, algorithm=greedy.greedy).bins
+    >>> splittings(BinsKeepingContents(2), items=[1,2,3,3,5,9,9], splits=1, method=greedy.greedy).bins
     [[9, 2, 1, 4.0], [5, 3, 3, 5.0]]
     
-    >>> list(splittings(BinsKeepingContents(2), items=[1,2,3,3,5,9,9], splits=1, algorithm=greedy.greedy).sums)
+    >>> list(splittings(BinsKeepingContents(2), items=[1,2,3,3,5,9,9], splits=1, method=greedy.greedy).sums)
     [16.0, 16.0]
 
-    >>> splittings(BinsKeepingContents(3), items=[1,2,3,3,5,9,9], splits=1, algorithm=greedy.greedy).bins
+    >>> splittings(BinsKeepingContents(3), items=[1,2,3,3,5,9,9], splits=1, method=greedy.greedy).bins
     [[9, 1.666666666666666], [5, 2, 3.666666666666666], [3, 3, 1, 3.666666666666666]]
     
-    >>> list(splittings(BinsKeepingContents(3), items=[1,2,3,3,5,9,9], splits=1, algorithm=greedy.greedy).sums)
+    >>> list(splittings(BinsKeepingContents(3), items=[1,2,3,3,5,9,9], splits=1, method=greedy.greedy).sums)
     [10.666666666666666, 10.666666666666666, 10.666666666666666]
 
-    >>> splittings(BinsKeepingContents(3), items=[1,2,3,3,5,9,9], splits=2, algorithm=greedy.greedy).bins
+    >>> splittings(BinsKeepingContents(3), items=[1,2,3,3,5,9,9], splits=2, method=greedy.greedy).bins
     [[5, 5.666666666666666], [3, 2, 5.666666666666666], [3, 1, 6.666666666666666]]
     
-    >>> list(splittings(BinsKeepingContents(3), items=[1,2,3,3,5,9,9], splits=2, algorithm=greedy.greedy).sums)
+    >>> list(splittings(BinsKeepingContents(3), items=[1,2,3,3,5,9,9], splits=2, method=greedy.greedy).sums)
     [10.666666666666666, 10.666666666666666, 10.666666666666666]
 
-    >>> splittings(BinsKeepingContents(3), items=[1,2,5,5,5,5,5], splits=1, algorithm=greedy.greedy).bins
+    >>> splittings(BinsKeepingContents(3), items=[1,2,5,5,5,5,5], splits=1, method=greedy.greedy).bins
     [[5, 5], [5, 2, 2.0], [5, 1, 3.0]]
     
-    >>> list(splittings(BinsKeepingContents(3), items=[1,2,5,5,5,5,5], splits=1, algorithm=greedy.greedy).sums)
+    >>> list(splittings(BinsKeepingContents(3), items=[1,2,5,5,5,5,5], splits=1, method=greedy.greedy).sums)
     [10.0, 9.0, 9.0]
 
     >>> from prtpy.partitioning import dp
-    >>> splittings(BinsKeepingContents(2), items=[1,2,3,3,5,9,9], splits=1, algorithm=dp.optimal).bins
+    >>> splittings(BinsKeepingContents(2), items=[1,2,3,3,5,9,9], splits=1, method=dp.optimal).bins
     [[9, 3, 4.0], [5, 3, 2, 1, 5.0]]
     
-    >>> list(splittings(BinsKeepingContents(2), items=[1,2,3,3,5,9,9], splits=1, algorithm=dp.optimal).sums)
+    >>> list(splittings(BinsKeepingContents(2), items=[1,2,3,3,5,9,9], splits=1, method=dp.optimal).sums)
     [16.0, 16.0]
 
-    >>> splittings(BinsKeepingContents(3), items=[1,2,3,3,5,9,9], splits=1, algorithm=dp.optimal).bins
+    >>> splittings(BinsKeepingContents(3), items=[1,2,3,3,5,9,9], splits=1, method=dp.optimal).bins
     [[9, 1.666666666666666], [5, 2, 3.666666666666666], [3, 3, 1, 3.666666666666666]]
     
-    >>> list(splittings(BinsKeepingContents(3), items=[1,2,3,3,5,9,9], splits=1, algorithm=dp.optimal).sums)
+    >>> list(splittings(BinsKeepingContents(3), items=[1,2,3,3,5,9,9], splits=1, method=dp.optimal).sums)
     [10.666666666666666, 10.666666666666666, 10.666666666666666]
 
-    >>> splittings(BinsKeepingContents(3), items=[1,2,3,3,5,9,9], splits=2, algorithm=dp.optimal).bins
+    >>> splittings(BinsKeepingContents(3), items=[1,2,3,3,5,9,9], splits=2, method=dp.optimal).bins
     [[5, 5.666666666666666], [3, 1, 6.666666666666666], [3, 2, 5.666666666666666]]
     
-    >>> list(splittings(BinsKeepingContents(3), items=[1,2,3,3,5,9,9], splits=2, algorithm=dp.optimal).sums)
+    >>> list(splittings(BinsKeepingContents(3), items=[1,2,3,3,5,9,9], splits=2, method=dp.optimal).sums)
     [10.666666666666666, 10.666666666666666, 10.666666666666666]
 
-    >>> splittings(BinsKeepingContents(3), items=[1,2,5,5,5,5,5], splits=1, algorithm=dp.optimal).bins
+    >>> splittings(BinsKeepingContents(3), items=[1,2,5,5,5,5,5], splits=1, method=dp.optimal).bins
     [[5, 2, 2.0], [5, 5], [5, 1, 3.0]]
     
-    >>> list(splittings(BinsKeepingContents(3), items=[1,2,5,5,5,5,5], splits=1, algorithm=dp.optimal).sums)
+    >>> list(splittings(BinsKeepingContents(3), items=[1,2,5,5,5,5,5], splits=1, method=dp.optimal).sums)
     [9.0, 10.0, 9.0]
     '''
-    items.sort(reverse=True)
+    items.sort()
+    items = items[::-1]
     entire_items = items[splits:]
     split_items = items[:splits]
-    algorithm(bins, entire_items)
+    method(bins, entire_items)
     add_split_items(bins, split_items, sum(items)/bins.num)
     logging.debug('entire_items: {0}'.format(entire_items))
     logging.debug('split_items: {0}'.format(split_items))

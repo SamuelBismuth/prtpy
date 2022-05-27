@@ -30,6 +30,11 @@ class partitioning:
     from prtpy.partitioning.roundrobin import roundrobin
     from prtpy.partitioning.multifit import multifit as multifit
 
+    from prtpy.partitioning.splittings import splittings as splittings
+
+    from prtpy.partitioning.balanced import bidirectional_balanced as bidirectional_balanced
+
+
 
 class packing:
     from prtpy.packing.first_fit import online as first_fit, decreasing as first_fit_decreasing

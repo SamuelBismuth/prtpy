@@ -1,6 +1,9 @@
 import prtpy, benchmark, logging
 from matplotlib import pyplot as plt
 from partition_uniform_integers import partition_random_items
+import tkinter
+
+
 
 benchmark.logger.setLevel(logging.INFO)
 benchmark.logger.addHandler(logging.StreamHandler())
