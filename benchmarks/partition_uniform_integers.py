@@ -56,8 +56,8 @@ def partition_and_compare_random_items(
     bitsperitem: int,
     instance_id: int = 0,
 ):
-    items = np.random.randint(1, 2**bitsperitem-1, numitems, dtype=np.int64)
-    # items = np.random.randint((2**bitsperitem-1 )/2, 2**bitsperitem-1, numitems, dtype=np.int64)
+    # items = np.random.randint(1, 2**bitsperitem-1, numitems, dtype=np.int64)
+    items = np.random.randint((2**bitsperitem-1 )/2, 2**bitsperitem-1, numitems, dtype=np.int64)
     # items = np.random.randint((2**bitsperitem-1 ) - 100, 2**bitsperitem-1, numitems, dtype=np.int64)
     compare = {}
     compare['numbins'] = numbins

@@ -18,6 +18,7 @@ def optimal(
     items: List[Any],
     valueof: Callable[[Any], float] = lambda x: x,
     objective: obj.Objective = obj.MinimizeDifference,
+    get_item_index = False
 ):
 
     """
@@ -48,10 +49,12 @@ def optimal(
     """
     if hasattr(bins, 'bins'):
         # We need the entire partition.
-        _optimal_partition(bins, items, valueof, objective)
+        item_indexes = _optimal_partition(bins, items, valueof, objective, get_item_index)
     else:
         # We need only the sums - not the entire partition.
-        _optimal_sums(bins, items, valueof, objective)
+        item_indexes = _optimal_sums(bins, items, valueof, objective)
+    if get_item_index:
+        return item_indexes
     return bins
 
 
@@ -113,6 +116,7 @@ def _optimal_partition(
     items: List[Any],
     valueof: Callable[[Any], float] = lambda x: x,
     objective: obj.Objective = obj.MinimizeDifference,
+    get_item_index = False
 ):
     """
     A DP that computes both the optimal sums and the optimal partition.
@@ -174,11 +178,18 @@ def _optimal_partition(
         record = record.prev
     logger.info("Path to best solution: %s", path)
 
+    item_indexes = []
     # construct solution
     for item_index, item in enumerate(items):
         ibin = path[item_index]
+        item_indexes.append({
+            'item_index': item_index, 
+            'bin': ibin
+            })
         logger.info("  Item %d (%s): bin %d", item_index, item, ibin,)
-        bins.add_item_to_bin(item, ibin)
+        if not get_item_index:
+            bins.add_item_to_bin(item, ibin)
+    return item_indexes
 
 
 if __name__ == "__main__":

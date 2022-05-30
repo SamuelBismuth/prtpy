@@ -109,7 +109,7 @@ def add_split_items(
             splittings -= split_item
             bins.add_item_to_bin(split_item, i)
 
-    logging.debug('splittings: {0}'.format(splittings))
+    logging.info('splittings: {0}'.format(splittings))
 
     assert int(splittings) == 0.0
    
