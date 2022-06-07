@@ -30,8 +30,6 @@ class partitioning:
     from prtpy.partitioning.roundrobin import roundrobin
     from prtpy.partitioning.multifit import multifit as multifit
 
-    from prtpy.partitioning.cbldm import cbldm
-
 
 class packing:
     from prtpy.packing.first_fit import online as first_fit, decreasing as first_fit_decreasing
@@ -56,4 +54,3 @@ class exact:  # Algorithms that return the exact optimal partition
 #     from prtpy.greedy import greedy
 #     from prtpy.first_fit import online as first_fit, decreasing as first_fit_decreasing
 #     from prtpy.first_fit import online as ff, decreasing as ffd
-
