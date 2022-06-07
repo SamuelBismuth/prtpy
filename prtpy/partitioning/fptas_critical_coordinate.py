@@ -1,4 +1,5 @@
 # TODO: How to implement?
+# https://github.com/erelsgl/dynprog/blob/main/examples/knapsack.py
 from prtpy import objectives as obj, Bins
 from typing import Callable, List, Any
 

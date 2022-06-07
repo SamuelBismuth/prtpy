@@ -1,5 +1,3 @@
-# TODO: Check if FPTAS valid.
-
 from prtpy.partitioning import dp
 from prtpy import objectives as obj, Bins
 from typing import Callable, List, Any
