@@ -114,6 +114,45 @@ def find_max_solvable_size(
     return BenchmarkResults(func, name_of_argument_to_modify, sizes_checked, runtimes_found, func_result)
 
 
+def find_max_splittings(
+    sizes_to_check: List[int],
+    max_time_in_seconds: float,
+    *args,
+    **kwargs,
+) -> BenchmarkResults:
+    """
+    Run a given function on inputs of increasingly larger size. Measure the run time.
+    Stop when the run time exceeds the given threshold.
+
+    :param func - the function to check.
+    :param name_of_argument_to_modify - the name of the argument that will be modified
+        (the argument that represents the 'size' of the input).
+    :param sizes_to_check - a list (possibly infinite) of values that will be given to the above argument.
+    :param max_time_in_seconds - the run-time threshold. Once the run-time exceeds this threshold, the test terminates.
+    :param args - other arguments to func.
+    :param kwargs - other keyword arguments to func.
+
+    :return (sizes, run_times):
+         sizes is the list of sizes (the last one of them is the largest);
+         run_times is the list of all run-times for the different sizes.
+    """
+    runtimes_found = []
+    sizes_checked = []
+    kwargs = dict(kwargs)
+    func_result = []
+    for size in sizes_to_check:
+        start = perf_counter()
+        kwargs["splittings"] = size
+        func_result.append(func(*args, **kwargs))
+        run_time = perf_counter() - start
+        logger.info("  %s=%s, run-time=%s", "splittings", size, run_time)
+        sizes_checked.append(size)
+        runtimes_found.append(run_time)
+        if run_time > max_time_in_seconds:
+            break
+    return BenchmarkResults(func, "splittings", sizes_checked, runtimes_found, func_result)
+
+
 if __name__ == "__main__":
 
     import itertools

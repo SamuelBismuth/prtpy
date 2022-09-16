@@ -2,7 +2,8 @@ from cProfile import label
 import prtpy, benchmark, logging
 from matplotlib import pyplot as plt
 from partition_uniform_integers import partition_and_compare_random_items
-from prtpy.partitioning import balanced, greedy, ilp, dp, ortools_ilp, complete_greedy, roundrobin
+from prtpy.partitioning import balanced, greedy
+# , ilp, dp, ortools_ilp, complete_greedy, roundrobin
 
 
 benchmark.logger.setLevel(logging.INFO)

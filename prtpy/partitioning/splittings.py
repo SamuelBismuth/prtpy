@@ -95,6 +95,8 @@ def add_split_items(
         if bin_sum > average:
             overflow += bin_sum - average
             overflowed_bins += 1
+    assert overflowed_bins < bins.num
+    
     overflow = overflow / (bins.num - overflowed_bins)
 
     logging.debug('average: {0}'.format(average))
@@ -106,11 +108,13 @@ def add_split_items(
         # Then, divide the split-items to increase every bin under the average to average - (overflow / bins.num)
         if bins.sums[i] < average:
             split_item = (average - overflow) - bins.sums[i]
+            # split_item = average - bins.sums[i]
             splittings -= split_item
             bins.add_item_to_bin(split_item, i)
 
-    logging.info('splittings: {0}'.format(splittings))
+    # logging.info('splittings: {0}'.format(splittings))
 
+    logging.info("splittings={0}".format(splittings))
     assert int(splittings) == 0.0
    
 
